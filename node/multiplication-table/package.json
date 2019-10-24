@@ -1,0 +1,14 @@
+{
+  "name": "multiplication-table",
+  "version": "1.0.0",
+  "description": "Genera una tabla de multiplicar que puede ser escrita en pantalla o exportada a un archivo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jesus Gabriel Millan Corobo",
+  "license": "ISC",
+  "dependencies": {
+    "yargs": "^14.0.0"
+  }
+}

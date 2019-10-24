@@ -36,11 +36,7 @@ const generedTable = (base, limit) => {
  * @returns {string} Retorna un String con el nombre del fichero creado.
  */
 const createTable = (base, limit) => new Promise ( (resolve, reject) => {
-    if (!Number(base) | !Number(limit)) {
-        reject(`Alguno de los parametros('${limit}' o '${base}') no es un numero.`);
-        return;
-    }   
-    const table = generedTable(base, limit)
+      const table = generedTable(base, limit)
 
     fs.writeFile(`tables/tabla-del-${table.base}.txt`, table.data, (err) => {
         if (err)
@@ -51,6 +47,18 @@ const createTable = (base, limit) => new Promise ( (resolve, reject) => {
 
 });
 
+/**
+ * Imprime en pantalla la tabla de multiplicar del numero 'base' desde el
+ * numero 1 hasta 'limite'
+ * 
+ * @param {number} base 
+ * @param {number} limit 
+ */
+const printTable = (base,limit) => console.log(generedTable(base,limit).data);
+
+
+// Modulos exportados
 module.exports = {
-    createTable
+    createTable,
+    printTable
 };

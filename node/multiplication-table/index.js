@@ -1,27 +1,33 @@
 // Requireds
-const {createTable} = require('./genered-tables')
+const {createTable, printTable} = require('./genered-tables')
+const argv = require('./config-yargs').argv
 
-
-const argv = process.argv;
-
-/* Leyendo los argumentos y buscando las variables que necesitamos
- NOTA: debe existir ya una libreria que haga esto mejor.
- Buscarla cuando haya internet */
-let params = {};
-argv.forEach( (element) => {
-//    Filtramos los elementos por aquellos que comienzon con '--'
-    if  (element.slice(0,2) == '--') {
-        // Dividimos el argumento en 'clave' y 'valor'
-        param = element.slice(2).split('=');
-        let key = param[0];
-        let value = param[1];
-
-        // Creamos un JSON con los valores y lo retornamos
-        params[`${key}`] = value
+function valideParam(number1, number2) {
+    if (!Number(number2) | !Number(number1)) {
+        console.log(`Alguno de los parametros('${number1}' o '${number2}') no es un numero.`);
     }
-})
-console.log(params)
-createTable(params.base,params.limit)
+    return (Number(number2) | Number(number1))
+}
+let command = argv._[0];
 
-    .then( fichero => console.log(`Fue creado con exito ${fichero}`))
-    .catch( e => console.log(e))
+switch (command) {
+    case 'crear':
+        if (valideParam(argv.base,argv.limite)) {
+            createTable(argv.base,argv.limite)
+                .then( fichero => console.log(`Fue creado con exito ${fichero}`))
+                .catch( e => console.log(e))
+        }
+        break;
+    
+    case 'listar':
+        console.log(valideParam(argv.base, argv.limite));
+        
+        if (valideParam(argv.base, argv.limite)) {
+            printTable(argv.base, argv.limite)
+        }
+        break;
+    
+    default:
+        console.log(`${command} no es un comando reconocido.`);        
+        break;
+}
